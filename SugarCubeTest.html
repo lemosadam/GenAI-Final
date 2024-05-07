@@ -98,7 +98,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="SugarCubeTest" startnode="1" creator="Twine" creator-version="2.6.2" format="SugarCube" format-version="2.36.1" ifid="383BC8FA-2376-4169-B4A8-E3D77D24ECF7" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">
+	<tw-storydata name="SugarCubeTest" startnode="2" creator="Twine" creator-version="2.8.1" format="SugarCube" format-version="2.36.1" ifid="383BC8FA-2376-4169-B4A8-E3D77D24ECF7" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">
 let API_KEY = "AIzaSyBWW76cUl3BzCpPt-bAY1OdO5sdcsISPqg";
 let url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY;
 
@@ -151,9 +151,24 @@ setup.getAndGenerate = async function generate(prompt) {
 
 The voice that seems to come from all around you is compelling. You do not think you can resist, so you struggle to your feet, and blindly move forward, your eyes still not yet adjusted to the light.
 
+&lt;&lt;set $generatedText to &quot;No Text Generated&quot;&gt;&gt;
+
+&lt;&lt;set $choice1 to &quot;Elizabeth&quot;&gt;&gt;
+
+&lt;&lt;set $imageDesc to $generatedText&gt;&gt;
+&lt;&lt;set $imageURL to &quot;http://mjn.anadrome.org:5000/&quot; + $imageDesc + &quot;.png&quot;&gt;&gt;
+
+&lt;&lt;script&gt;&gt;
+setup.generateText(&quot;Give me a brief, modest, narrative description of a fae creature in a deep, dark forest with silver hair and bright blue eyes. The fae is gender neutral and is as terrifying as they are regal. Keep it under 70 words.&quot; )
+  .then(text =&gt; State.variables.generatedText = text)
+  
+  .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
+console.log(&quot;this is being called&quot;);
+&lt;&lt;/script&gt;&gt;
+
 [[Follow]]
 </tw-passagedata><tw-passagedata pid="3" name="Test" tags="" position="600,200" size="100,100">&lt;&lt;script&gt;&gt;
-setup.generateText(&quot;Tell me a brief, modest, narrative description of someone redheaded and female named&quot; + State.variables.choice1)
+setup.generateText(&quot;Tell me a brief, modest, narrative description of someone redheaded named&quot; + State.variables.choice1)
   .then(text =&gt; State.variables.generatedText = text)
   
   .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
@@ -170,9 +185,9 @@ And as if by magic, you find yourself unable to move. Confusion and fear begin t
 
 &quot;OPEN YOUR EYES ANEW, AND SEE ONCE MORE.&quot;
 
-[[And just like that, you can see.]]</tw-passagedata><tw-passagedata pid="6" name="And just like that, you can see." tags="" position="1050,300" size="100,100">You see now that you are deep in the forest, and before you stands a creature of Fae.
+[[And just like that, you can see.]]</tw-passagedata><tw-passagedata pid="6" name="And just like that, you can see." tags="Twine.image" position="1050,300" size="100,100">You see now that you are deep in the forest, and before you stands a creature of Fae.
 
-(Generated text here. I&#39;ll leave the keywords to you Adam, you have a better understanding of Fae than I do)
+$generatedText
 
 &quot;I have taken a shine to you, man-thing. There are... problematic elements afoot. Due to existing agreements amongst my kin, I need an agent to deal with them. You will be that agent. I have gifted you with the ability adjust the details of the world around you, so that you might better complete your task. What say you?&quot;
 
@@ -180,8 +195,10 @@ And as if by magic, you find yourself unable to move. Confusion and fear begin t
 
 [[Reject the Fae.]]
 
-
-(Generated image here)</tw-passagedata><tw-passagedata pid="7" name="Accept the Fae." tags="" position="1050,425" size="100,100">The Fae nods approvingly. 
+&lt;&lt;set $imageDesc to $generatedText&gt;&gt;
+&lt;&lt;set $imageURL to &quot;http://mjn.anadrome.org:5000/&quot; + $imageDesc + &quot;.png&quot;&gt;&gt;
+&lt;&lt;print &#39;&lt;img src=&quot;&#39; + $imageURL + &#39;&quot; alt=&quot;Dynamic Image&quot;&gt;&#39; &gt;&gt;
+</tw-passagedata><tw-passagedata pid="7" name="Accept the Fae." tags="" position="1050,425" size="100,100">The Fae nods approvingly. 
 
 &quot;Good, man-thing. You have chosen wisely. There is a castle near these parts, wherein you will find a wretched knight. Deal with them, and I will grant you boons beyond your imagining. Farewell.&quot;
 
@@ -193,7 +210,7 @@ With that, the Fae is gone. The exhaustion in your limbs is gone, replaced with 
 
 With a snap of their fingers, the Fae engulfs you in flames, and your story comes to an end.
 
-[[Start Over|Awakening]]</tw-passagedata><tw-passagedata pid="9" name="it is winter." tags="" position="900,500" size="100,100">&lt;&lt; set $choice1 to &quot;winter&quot;&gt;&gt;
+[[Start Over|Awakening]]</tw-passagedata><tw-passagedata pid="9" name="it is winter." tags="" position="900,500" size="100,100">&lt;&lt;set $choice1 to &quot;winter&quot;&gt;&gt;
 
 With a slight shift in your will, you feel the air around you grow cold, and see frost accumulate on the trees. You were always here in winter, amidst the dead trees and icy winds. You begin walking forward, hoping desperately that this is the direction of the castle.
 
@@ -231,21 +248,42 @@ With a shift in your will, you notice the creature is female, sporting a fetchin
 [[dawn.]]
 
 [[dusk.]]</tw-passagedata><tw-passagedata pid="13" name="dawn." tags="" position="975,750" size="100,100">&lt;&lt;set $choice3 to &quot;dawn&quot;&gt;&gt;
-
 You follow the creature through the woods, until you break past the treeline, the walls of the castle before you, illuminated by the dawn&#39;s light.
 
 [[Approach the castle.]]
 
-&lt;&lt;Prompt info here, the little gremlin waving goodbye to you from the woods&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="dusk." tags="" position="1125,750" size="100,100">&lt;&lt;set $choice3 to &quot;dusk&quot;&gt;&gt;
+&lt;&lt;script&gt;&gt;
+setup.generateText(&quot;Give me a brief, modest, narrative description under 70 words of a strange, fae, gremlin creature waving goodbye from the nearby woods. The creature is&quot; + State.variables.choice2 + &quot;the season is&quot; + State.variables.choice1 + &quot;and the time is&quot; +State.variables.choice3)
+  .then(text =&gt; State.variables.generatedText = text)
+  
+  .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
+console.log(&quot;this is being called&quot;);
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="dusk." tags="" position="1125,750" size="100,100">&lt;&lt;set $choice3 to &quot;dusk&quot;&gt;&gt;
 
 You follow the creature through the woods, until you break past the treeline, the walls of the castle before you, illuminated by the rising moon.
 
 [[Approach the castle.]]
 
-&lt;&lt;Prompt info here, the little gremlin waving goodbye to you from the woods&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="Approach the castle." tags="" position="1050,875" size="100,100">Before you approach the castle, you turn back and look at the forest one last time, waving goodbye to your little gremlin companion.
+&lt;&lt;script&gt;&gt;
+setup.generateText(&quot;Give me a brief, modest, narrative description under 70 words of a strange, fae, gremlin creature waving goodbye from the nearby woods. The creature is&quot; + State.variables.choice2 + &quot;but is more gremlin than humanoid. The season is&quot; + State.variables.choice1 + &quot;and the time is&quot; +State.variables.choice3)
+  .then(text =&gt; State.variables.generatedText = text)
+  
+  .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
+console.log(&quot;this is being called&quot;);
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="Approach the castle." tags="" position="1050,875" size="100,100">Before you approach the castle, you turn back and look at the forest one last time, waving goodbye to your little gremlin companion.
 
-&lt;&lt;AI text and image here&gt;&gt;
+$generatedText
 
+&lt;&lt;script&gt;&gt;
+setup.generateText(&quot;Give me a brief, modest, narrative description under 70 words of a strange, fae, gremlin creature waving goodbye from the nearby woods. The creature is&quot; + State.variables.choice2 + &quot;the season is&quot; + State.variables.choice1 + &quot;and the time is&quot; +State.variables.choice3)
+  .then(text =&gt; State.variables.generatedText = text)
+  
+  .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
+console.log(&quot;this is being called&quot;);
+&lt;&lt;/script&gt;&gt;
+&lt;&lt;set $imageDesc to $generatedText&gt;&gt;
+&lt;&lt;set $imageURL to &quot;http://mjn.anadrome.org:5000/&quot; + $imageDesc + &quot;.png&quot;&gt;&gt;
+&lt;&lt;print &#39;&lt;img src=&quot;&#39; + $imageURL + &#39;&quot; alt=&quot;Dynamic Image&quot;&gt;&#39; &gt;&gt;
 [[And now you step forward and knock on the doors of the castle]].
 </tw-passagedata><tw-passagedata pid="16" name="And now you step forward and knock on the doors of the castle" tags="" position="1050,1000" size="100,100">Your knock on the door is answered by a kindly old servant, who beckons you inside. You explain you are here to speak with the knight who commands this castle, and the servant nods sagely.
 
@@ -253,9 +291,9 @@ You follow the creature through the woods, until you break past the treeline, th
 
 You look around and decide that the castle is:
 
-[[oppulent.]]
+[[opulent.]]
 
-[[decrepit.]]</tw-passagedata><tw-passagedata pid="17" name="oppulent." tags="" position="900,1100" size="100,100">&lt;&lt;set $choice4 to &quot;oppulent&quot;&gt;&gt;
+[[decrepit.]]</tw-passagedata><tw-passagedata pid="17" name="opulent." tags="" position="900,1100" size="100,100">&lt;&lt;set $choice4 to &quot;opulent&quot;&gt;&gt;
 With a shift in your will, you look around and find that the castle is extravagantly decorated, clad in bright tapestries and golden finery. As you follow the servant through winding hallways, you pass vases filled to the brim with fine wines, and tables stuffed with ripe fruits and roasted meats. It all speaks to a life of excess, of gluttony and greed. You are disgusted.
 
 The servant shows you to the grand hall of the castle, where the knight who rules this estate reigns. You decide that they are:
@@ -269,29 +307,43 @@ The servant shows you to the grand hall of the castle, where the knight who rule
 
 [[a man.]]
 
-[[a woman..]]</tw-passagedata><tw-passagedata pid="19" name="a woman.." tags="" position="1200,1225" size="100,100">&lt;&lt;set $choice6 to &quot;woman&quot;&gt;&gt;
+[[a woman..]]</tw-passagedata><tw-passagedata pid="19" name="a woman.." tags="" position="1200,1225" size="100,100">&lt;&lt;set $choice5 to &quot;woman&quot;&gt;&gt;
 With a shift in your will, you find that the knight who rules this castle is a lady. The servant asks that you wait, before approaching the knight, and conveying to her who you are.
 
 &quot;APPROACH.&quot; Her voice booms.
 
 [[Approach the knight.]]
 
-(Prompt info here, describing the knight in the castle)</tw-passagedata><tw-passagedata pid="20" name="a man." tags="" position="900,1225" size="100,100">&lt;&lt; set $choice5 to &quot;man&quot;&gt;&gt;
+&lt;&lt;script&gt;&gt;
+setup.generateText(&quot;Give me a brief narrative description under 70 words of a Knight who rules the castle you&#39;re inside. You&#39;re in the interior of their throne room. The castle and the room you are in is extremely&quot; + State.variables.choice4 + &quot;the knight is&quot; + State.variables.choice5 + &quot;and should be represented as such&quot;)
+  .then(text =&gt; State.variables.generatedText = text)
+  
+  .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
+console.log(&quot;this is being called&quot;);
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="a man." tags="" position="900,1225" size="100,100">&lt;&lt;set $choice5 to &quot;man&quot;&gt;&gt;
 With a shift in your will, you find that the knight who rules this castle is a lord. The servant asks that you wait, before approaching the knight, and conveying to him who you are.
 
 &quot;APPROACH.&quot; His voice booms.
 
 [[Approach the knight.]]
 
-(Prompt info here, describing the knight in the castle)</tw-passagedata><tw-passagedata pid="21" name="Approach the knight." tags="" position="1050,1350" size="100,100">You step towards the knight.
+&lt;&lt;script&gt;&gt;
+setup.generateText(&quot;Give me a brief narrative description under 70 words of a Knight who rules the castle you&#39;re inside. You&#39;re in the interior of their throne room. The castle and the room you are in is extremely&quot; + State.variables.choice4 + &quot;the knight is seated on their throne. The knight is&quot; + State.variables.choice5 + &quot;and should be represented as such. Do not write dialogue.&quot;)
+  .then(text =&gt; State.variables.generatedText = text)
+  
+  .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
+console.log(&quot;this is being called&quot;);
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="Approach the knight." tags="" position="1050,1350" size="100,100">You step towards the knight.
 
-(AI text here)
+$generatedText
 
 &quot;But why have you come here interloper?&quot;
 
 [[Answer the knight]]
 
-(Image here)</tw-passagedata><tw-passagedata pid="22" name="Answer the knight" tags="" position="1050,1475" size="100,100">You take a deep breath and address the knight.
+&lt;&lt;set $imageDesc to $generatedText&gt;&gt;
+&lt;&lt;set $imageURL to &quot;http://mjn.anadrome.org:5000/&quot; + $imageDesc + &quot;.png&quot;&gt;&gt;
+&lt;&lt;print &#39;&lt;img src=&quot;&#39; + $imageURL + &#39;&quot; alt=&quot;Dynamic Image&quot;&gt;&#39; &gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Answer the knight" tags="" position="1050,1475" size="100,100">You take a deep breath and address the knight.
 
 &quot;I have been sent here by a creature of Fae, to dispatch of a knight of ill-repute, and based on the state of your castle, I understand why. Justify yourself, or I shall smite you!&quot;
 
@@ -312,8 +364,16 @@ After some time, the fire is out, and the knight is no more. In the silence, you
 
 [[You watch, helpless, as the Fae departs.]]
 
-(AI text prompt here, the passage of time)
-(Ai image prompt, your corpse alongside the knight&#39;s in the throne room)</tw-passagedata><tw-passagedata pid="24" name="bring the castle down." tags="" position="1200,1600" size="100,100">&lt;&lt;set $choice6 to &quot;castle destroyed&quot;&gt;&gt;
+
+
+&lt;&lt;script&gt;&gt;
+setup.generateText(&quot;Give me a brief, narrative description written in second person under 70 words the season is&quot; + State.variables.choice1 + &quot;the time is&quot; + State.variables.choice3 + &quot; but the seasons turn and the years roll on as you spend an eternity trapped in the castle. You are now one of two spectres that haunt the castle.&quot;)
+  .then(text =&gt; State.variables.generatedText = text)
+  
+  .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
+console.log(&quot;this is being called&quot;);
+&lt;&lt;/script&gt;&gt;
+</tw-passagedata><tw-passagedata pid="24" name="bring the castle down." tags="" position="1200,1600" size="100,100">&lt;&lt;set $choice6 to &quot;castle destroyed&quot;&gt;&gt;
 You shift your will one last time, and the castle rumbles around you. Chunks of stone collapse around you, narrowly avoiding you and the knight, but crushing the servant who led you in. In mere moments the grand hall is open to the sky, and you can witness the other myriad spires and turrets of the castle collapsing under their own weight. Soon all is but a pile of rubble. The knight nods at you in thanks.
 
 &quot;You have freed me from this curse. Thank you.&quot; They declare, before sprinting off towards the woods. As they disappear, and you stand amidst the ruins of the castle, the Fae appears before you.
@@ -322,18 +382,34 @@ You shift your will one last time, and the castle rumbles around you. Chunks of 
 
 [[And so you begin the long walk home.]]
 
-(AI text prompt here, description of a long journey through the woods to a town)
+&lt;&lt;script&gt;&gt;
+setup.generateText(&quot;Give me a brief, narrative description written in second person under 70 words the season is&quot; + State.variables.choice1 + &quot;the time is&quot; + State.variables.choice3 + &quot;. The player emerges from the rubble and ruins of a castle they destroyed themselves.&quot;)
+  .then(text =&gt; State.variables.generatedText = text)
+  
+  .catch(err =&gt; State.variables.generatedText=&quot;Text generation failed&quot;);
+console.log(&quot;this is being called&quot;);
+&lt;&lt;/script&gt;&gt;
 
-(AI image prompt, the lone figure of the player in the ruins of the castle)</tw-passagedata><tw-passagedata pid="25" name="You watch, helpless, as the Fae departs." tags="" position="900,1725" size="100,100">And so, an eternity passes.
+</tw-passagedata><tw-passagedata pid="25" name="You watch, helpless, as the Fae departs." tags="" position="900,1725" size="100,100">And so, an eternity passes.
 
-(AI text here)
+
+$generatedText
 
 And finally you pass from the world, no more than a memory.
 Thus your story ends.
 
+&lt;&lt;set $imageDesc to $generatedText&gt;&gt;
+&lt;&lt;set $imageURL to &quot;http://mjn.anadrome.org:5000/&quot; + $imageDesc + &quot;.png&quot;&gt;&gt;
+&lt;&lt;print &#39;&lt;img src=&quot;&#39; + $imageURL + &#39;&quot; alt=&quot;Dynamic Image&quot;&gt;&#39; &gt;&gt;
+
 [[Start anew|Awakening]]</tw-passagedata><tw-passagedata pid="26" name="And so you begin the long walk home." tags="" position="1200,1725" size="100,100">You trudge away from the castle.
 
-(AI text here)
+
+$generatedText
+
+&lt;&lt;set $imageDesc to $generatedText&gt;&gt;
+&lt;&lt;set $imageURL to &quot;http://mjn.anadrome.org:5000/&quot; + $imageDesc + &quot;.png&quot;&gt;&gt;
+&lt;&lt;print &#39;&lt;img src=&quot;&#39; + $imageURL + &#39;&quot; alt=&quot;Dynamic Image&quot;&gt;&#39; &gt;&gt;
 
 You return to your hometown, nothing lost and nothing gained, but perhaps that truly is the best you could hope for.
 Thus, your story ends.
